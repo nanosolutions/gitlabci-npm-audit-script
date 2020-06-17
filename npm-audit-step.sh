@@ -16,17 +16,17 @@ MODERATE_VUL="$(./jq-linux64 .metadata.vulnerabilities.moderate < ./audit_result
 HIGH_VUL="$(./jq-linux64 .metadata.vulnerabilities.high < ./audit_result.json)"
 CRITICAL_VUL="$(./jq-linux64 .metadata.vulnerabilities.critical < ./audit_result.json)"
 
-if [ "$INFO_VUL" -ne "0" ]
-then
-    print_vulnerabilities
-    exit 1
-fi
+# if [ "$INFO_VUL" -ne "0" ]
+# then
+#     print_vulnerabilities
+#     exit 1
+# fi
 
-if [ "$LOW_VUL" -ne "0" ]
-then
-    print_vulnerabilities
-    exit 1
-fi
+# if [ "$LOW_VUL" -ne "0" ]
+# then
+#     print_vulnerabilities
+#     exit 1
+# fi
 
 if [ "$MODERATE_VUL" -ne "0" ]
 then
