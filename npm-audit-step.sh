@@ -1,5 +1,7 @@
 #!/bin/bash
 
+CI_COMMIT_BRANCH=$1
+PROJECT_DOMAIN=$2
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         COMMAND="jq-linux64"
@@ -55,6 +57,11 @@ echo "Summary "
 #     print_vulnerabilities
 #     exit 1
 # fi
+
+if [[ $CI_COMMIT_BRANCH == 'master' ]]
+then
+    curl -L -X POST https://chief.nano.rocks/api/report -F "report=@audit_result.json" -F 'metadata={"type":"npm","version":"6","project":"$PROJECT_DOMAIN"}'
+fi
 
 if [ "$MODERATE_VUL" -ne "0" ]
 then
