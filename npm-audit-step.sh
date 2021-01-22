@@ -58,11 +58,10 @@ echo "Summary "
 #     exit 1
 # fi
 
-curl -L -X POST https://chief.nano.rocks/api/report -F "report=@audit_result.json" -F "metadata={\"type\":\"npm\",\"version\":\"6\",\"project\":\"$PROJECT_DOMAIN\"}"
-# if [[ $CI_COMMIT_BRANCH == 'master' ]]
-# then
-#     curl -L -X POST https://chief.nano.rocks/api/report -F "report=@audit_result.json" -F 'metadata={"type":"npm","version":"6","project":"$PROJECT_DOMAIN"}'
-# fi
+if [[ $CI_COMMIT_BRANCH == 'master' ]]
+then
+    curl -L -X POST https://chief.nano.rocks/api/report -F "report=@audit_result.json" -F "metadata={\"type\":\"npm\",\"version\":\"6\",\"project\":\"$PROJECT_DOMAIN\"}"
+fi
 
 if [ "$MODERATE_VUL" -ne "0" ]
 then
