@@ -30,6 +30,8 @@ fi
 
 
 chmod +x $COMMAND
+
+npm -v
 #npm i --package-lock-only
 npm audit --json > audit_result.json
 
