@@ -1,7 +1,8 @@
 #!/bin/bash
 
-CI_COMMIT_BRANCH=$1
+CI_COMMIT_REF_NAME=$1
 PROJECT_DOMAIN=$2
+CI_COMMIT_SHORT_SHA=$3
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         COMMAND="jq-linux64"
@@ -59,7 +60,7 @@ echo "Summary "
 #     exit 1
 # fi
 
-if [[ $CI_COMMIT_BRANCH == 'master' ]]
+if [[ $CI_COMMIT_REF_NAME == 'master' || $CI_COMMIT_REF_NAME =~ ^[0-9]\.[0-9]\.[0-9]$ ]]
 then
     curl -L -X POST https://chief.nano.rocks/api/report -F "report=@audit_result.json" -F "metadata={\"type\":\"npm\",\"version\":\"6\",\"project\":\"$PROJECT_DOMAIN\",\"ref\":\"$CI_COMMIT_REF_NAME\", \"sha\":\"$CI_COMMIT_SHORT_SHA\"}"
 fi
