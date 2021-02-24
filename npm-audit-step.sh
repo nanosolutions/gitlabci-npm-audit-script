@@ -31,7 +31,6 @@ fi
 
 chmod +x $COMMAND
 
-npm -v
 #npm i --package-lock-only
 npm audit --json > audit_result.json
 
@@ -62,7 +61,7 @@ echo "Summary "
 
 if [[ $CI_COMMIT_BRANCH == 'master' ]]
 then
-    curl -L -X POST https://chief.nano.rocks/api/report -F "report=@audit_result.json" -F "metadata={\"type\":\"npm\",\"version\":\"6\",\"project\":\"$PROJECT_DOMAIN\"}"
+    curl -L -X POST https://chief.nano.rocks/api/report -F "report=@audit_result.json" -F "metadata={\"type\":\"npm\",\"version\":\"6\",\"project\":\"$PROJECT_DOMAIN\",\"ref\":\"$CI_COMMIT_REF_NAME\", \"sha\":\"$CI_COMMIT_SHORT_SHA\"}"
 fi
 
 if [ "$MODERATE_VUL" -ne "0" ]
