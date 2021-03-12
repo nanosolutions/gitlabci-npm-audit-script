@@ -33,7 +33,7 @@ fi
 chmod +x $COMMAND
 
 #npm i --package-lock-only
-npm -v
+VERSION="$(npm -v | cut -c1)"
 npm audit --json > audit_result.json
 
 #INFO_VUL="$(./${COMMAND} .metadata.vulnerabilities.info < ./audit_result.json)"
@@ -63,7 +63,7 @@ echo "Summary "
 
 if [[ $CI_COMMIT_REF_NAME == 'master' || $CI_COMMIT_REF_NAME =~ ^[0-9]\.[0-9]\.[0-9]$ ]]
 then
-    curl -L -X POST https://chief.nano.rocks/api/report -F "report=@audit_result.json" -F "metadata={\"type\":\"npm\",\"version\":\"6\",\"project\":\"$PROJECT_DOMAIN\",\"ref\":\"$CI_COMMIT_REF_NAME\", \"sha\":\"$CI_COMMIT_SHORT_SHA\"}"
+    curl -L -X POST https://chief.nano.rocks/api/report -F "report=@audit_result.json" -F "metadata={\"type\":\"npm\",\"version\":\"$VERSION\",\"project\":\"$PROJECT_DOMAIN\",\"ref\":\"$CI_COMMIT_REF_NAME\", \"sha\":\"$CI_COMMIT_SHORT_SHA\"}"
 fi
 
 if [ "$MODERATE_VUL" -ne "0" ]
