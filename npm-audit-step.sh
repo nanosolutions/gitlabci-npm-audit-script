@@ -33,6 +33,7 @@ fi
 chmod +x $COMMAND
 
 #npm i --package-lock-only
+echo npm -v
 npm audit --json > audit_result.json
 
 #INFO_VUL="$(./${COMMAND} .metadata.vulnerabilities.info < ./audit_result.json)"
