@@ -15,7 +15,7 @@ GITHUB="https://github.com/stedolan/jq/releases/download/jq-1.6/"
 print_vulnerabilities () {
     
     echo "Report"
-    npm audit
+    npm audit --production
 }
 
 # print_vulnerabilities () {
@@ -34,7 +34,7 @@ chmod +x $COMMAND
 
 #npm i --package-lock-only
 VERSION="$(npm -v | cut -c1)"
-npm audit --json > audit_result.json
+npm audit --production --json > audit_result.json
 
 #INFO_VUL="$(./${COMMAND} .metadata.vulnerabilities.info < ./audit_result.json)"
 #LOW_VUL="$(./${COMMAND} .metadata.vulnerabilities.low < ./audit_result.json)"
@@ -66,11 +66,11 @@ then
     curl -L -X POST https://chief.nano.rocks/api/report -F "report=@audit_result.json" -F "metadata={\"type\":\"npm\",\"version\":\"$VERSION\",\"project\":\"$PROJECT_DOMAIN\",\"ref\":\"$CI_COMMIT_REF_NAME\", \"sha\":\"$CI_COMMIT_SHORT_SHA\"}"
 fi
 
-if [ "$MODERATE_VUL" -ne "0" ]
-then
-    print_vulnerabilities
-    exit 1
-fi
+# if [ "$MODERATE_VUL" -ne "0" ]
+# then
+#     print_vulnerabilities
+#     exit 1
+# fi
 
 if [ "$HIGH_VUL" -ne "0" ]
 then
