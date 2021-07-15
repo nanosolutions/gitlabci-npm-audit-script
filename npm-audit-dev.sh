@@ -63,14 +63,14 @@ echo "Summary "
 
 if [[ $CI_COMMIT_REF_NAME =~ ^[0-9]*\.[0-9]*\.[0-9]*$|^master$|^develop$ ]]
 then
-    curl -L -X POST https://chief.nano.rocks/api/report -F "report=@audit_result.json" -F "metadata={\"type\":\"npm\",\"version\":\"$VERSION\",\"project\":\"$PROJECT_DOMAIN\",\"ref\":\"$C0I_COMMIT_REF_NAME\", \"sha\":\"$CI_COMMIT_SHORT_SHA\", \"job_url\":\"$CI_JOB_URL\"}"
+    curl -L -X POST https://chief.nano.rocks/api/report -F "report=@audit_result.json" -F "metadata={\"type\":\"npm-dev\",\"version\":\"$VERSION\",\"project\":\"$PROJECT_DOMAIN\",\"ref\":\"$CI_COMMIT_REF_NAME\", \"sha\":\"$CI_COMMIT_SHORT_SHA\"}"
 fi
 
-if [ "$MODERATE_VUL" -ne "0" ]
-then
-    print_vulnerabilities
-    exit 1
-fi
+# if [ "$MODERATE_VUL" -ne "0" ]
+# then
+#     print_vulnerabilities
+#     exit 1
+# fi
 
 if [ "$HIGH_VUL" -ne "0" ]
 then
